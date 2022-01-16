@@ -20,7 +20,9 @@ class Fairy:
     Y_POS_DUCK = 270
     JUMP_VEL = 9
 
-    def __init__(self):
+    def __init__(self, z):
+        self.z = z
+        
         self.duck_img = DUCKING[z]
         self.run_img = RUNNING[z]
         self.jump_img = JUMPING[z]
@@ -79,13 +81,12 @@ class Fairy:
             self.f_run = True
             self.f_jump = False
         if userInput[pygame.K_a]:
-            global z
-            z += 1
-            if z > 2:
-                z = 0
-            self.duck_img = DUCKING[z]
-            self.run_img = RUNNING[z]
-            self.jump_img = JUMPING[z]
+            self.z += 1
+            if self.z > 2:
+                self.z = 0
+            self.duck_img = DUCKING[self.z]
+            self.run_img = RUNNING[self.z]
+            self.jump_img = JUMPING[self.z]
 
     def duck(self):
         self.image = self.duck_img

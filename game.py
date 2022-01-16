@@ -5,16 +5,17 @@ from fairy import *
 from globals import *
 from monster import *
 from power import *
+from boom import *
 
 pygame.init()
 pygame.mixer.music.load('ce8e6287c767e45.mp3')
 pygame.mixer.music.play(-1)
 
 def main():
-    global game_speed, x_pos_bg, y_pos_bg, points, we, JUMP_VEL, jump_vel, e, run
+    global game_speed, x_pos_bg, y_pos_bg, points, we, JUMP_VEL, jump_vel, e, run, z
     f = 0
     clock = pygame.time.Clock()
-    player = Fairy()
+    player = Fairy(z)
     decor = Decor()
     game_speed = 20
     x_pos_bg = 0
@@ -22,6 +23,7 @@ def main():
     points = 0
     fo = pygame.font.SysFont('arial', 20)
     k = 0
+
     if f > 0:
         jump_vel = 10.5
     else:
@@ -40,14 +42,17 @@ def main():
         textRect = text.get_rect()
         textRect.center = (1100, 40)
         SCREEN.blit(text, textRect)
+
         lev = fo.render("Уровень: " + str(LEVEL), True, (0, 0, 0))
         levRect = lev.get_rect()
         levRect.center = (1100, 100)
         SCREEN.blit(lev, levRect)
+
         sp = fo.render("Скорость: " + str(game_speed), True, (0, 0, 0))
         spRect = sp.get_rect()
         spRect.center = (1100, 60)
         SCREEN.blit(sp, spRect)
+
         j = fo.render("Прыжок: " + str(jump_vel), True, (0, 0, 0))
         jRect = j.get_rect()
         jRect.center = (1100, 80)
@@ -76,6 +81,22 @@ def main():
         player.draw(SCREEN)
         player.update(ui)
 
+        # Выстрел феи по "пробелу"
+        if ui[pygame.K_SPACE]:
+            powers.append(Power(player.f_rect.y + player.f_rect.height//4, player.z))
+
+        for power in powers:
+            power.draw(SCREEN)
+            power.update()
+
+            # Выстрел дотронулся Монстра
+            for monster in we:
+                if type(monster) is not Bonus:
+                    if power.rect.colliderect(object.rect):
+                        we.append(Boom(monster.rect.x, monster.rect.y))
+                        we.remove(monster)
+
+        # на экране - ничего
         if len(we) == 0:
             s = random.randint(0, 4)
             f -= 1
@@ -88,12 +109,18 @@ def main():
             elif s == 3:
                 we.append(Bonus(BONUS))
                 f = 3
+
         for object in we:
             object.draw(SCREEN)
             object.update()
 
+            # Взрыв для нас прозрачный
+            if type(object) is Boom:
+                pass
+
             # Взяли бонус
-            if s == 3 and player.f_rect.colliderect(object.rect):
+            elif type(object) is Bonus and \
+               player.f_rect.colliderect(object.rect):
                 if random.randint(0, 3) == 0:
                     if game_speed >= ms + 5:
                         game_speed += random.randint(-5, 5)
@@ -107,12 +134,14 @@ def main():
                     f = 3
                 elif random.randint(0, 3) == 3:
                     q = 1
+                we.remove(object)
 
             # Дотронулись Монстра
             elif player.f_rect.colliderect(object.rect):
                 pygame.time.delay(2000)
                 k += 1
                 menu(k)
+
             e = 1
 
         background()
@@ -127,7 +156,7 @@ def main():
 
 
 def menu(de):
-    global points, game_speed, z, LEVEL, ms, y, q, we, run
+    global points, game_speed, LEVEL, ms, y, q, we, run, powers
     i = 1
     q = 0
     z = 0
@@ -135,6 +164,7 @@ def menu(de):
     ms = 20
     game_speed = 20  # начальная скорость
     we.clear()  # предметов на поле нет
+    powers.clear()  # выстрелы
 
     while run:
         SCREEN.fill((255, 208, 223))
@@ -153,6 +183,7 @@ def menu(de):
             levelRect = level.get_rect()
             levelRect.center = (800, 100)
             SCREEN.blit(level, levelRect)
+
             scoreRect = score.get_rect()
             scoreRect.center = (1000, 100)
             SCREEN.blit(score, scoreRect)

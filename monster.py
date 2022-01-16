@@ -13,7 +13,7 @@ class qwe:
         self.rect.x -= game_speed
         if self.rect.x + self.rect.width < 0 or \
            self.rect.x > SCREEN_WIDTH:
-            we.pop()
+            we.remove(self)
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
