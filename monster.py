@@ -1,6 +1,7 @@
 import random
 from globals import *
 
+
 class qwe:
 
     def __init__(self, image, type):

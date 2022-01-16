@@ -11,8 +11,10 @@ pygame.init()
 pygame.mixer.music.load('ce8e6287c767e45.mp3')
 pygame.mixer.music.play(-1)
 
+
 def main():
-    global game_speed, x_pos_bg, y_pos_bg, points, we, JUMP_VEL, jump_vel, e, run, z
+    global game_speed, x_pos_bg, y_pos_bg, points
+    global we, JUMP_VEL, jump_vel, e, run, z
     f = 0
     clock = pygame.time.Clock()
     player = Fairy(z)
@@ -83,7 +85,8 @@ def main():
 
         # Выстрел феи по "пробелу"
         if ui[pygame.K_SPACE]:
-            powers.append(Power(player.f_rect.y + player.f_rect.height//4, player.z))
+            powers.append(Power(player.f_rect.y + player.f_rect.height//4,
+                                player.z))
 
         for power in powers:
             power.draw(SCREEN)
@@ -120,7 +123,7 @@ def main():
 
             # Взяли бонус
             elif type(object) is Bonus and \
-               player.f_rect.colliderect(object.rect):
+                    player.f_rect.colliderect(object.rect):
                 if random.randint(0, 3) == 0:
                     if game_speed >= ms + 5:
                         game_speed += random.randint(-5, 5)
@@ -170,9 +173,11 @@ def menu(de):
         SCREEN.fill((255, 208, 223))
         font = pygame.font.SysFont('arial', 40)
         if de == 0:
-            text = font.render("Нажмите на пробел, чтобы начать игру", True, (0, 0, 0))
+            text = font.render("Нажмите на пробел, чтобы начать игру",
+                               True, (0, 0, 0))
         elif de > 0:
-            text = font.render("Нажмите на пробел, чтобы возобновить игру", True, (0, 0, 0))
+            text = font.render("Нажмите на пробел, чтобы возобновить игру",
+                               True, (0, 0, 0))
             score = font.render("ОЧКИ: " + str(points), True, (0, 0, 0))
             if points >= 1000:
                 if i == 1:

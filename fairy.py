@@ -2,17 +2,32 @@ import pygame
 import os
 from globals import *
 
-RUNNING = [pygame.image.load(os.path.join("fiary", "musa_harmonix_by_fenixfairy_d8wcs91-fullview.png")),
-           pygame.image.load(os.path.join("fiary", "34d95c2dc9b57f3a1182c1366821a00d.jpg")),
-           pygame.image.load(os.path.join("fiary", "bloom-flora-musa-aisha-tecna-animation.png"))]
+RUNNING = [pygame.image.load(os.path.join(
+                "fiary",
+                "musa_harmonix_by_fenixfairy_d8wcs91-fullview.png")),
+           pygame.image.load(os.path.join(
+                "fiary",
+                "34d95c2dc9b57f3a1182c1366821a00d.jpg")),
+           pygame.image.load(os.path.join(
+                "fiary",
+                "bloom-flora-musa-aisha-tecna-animation.png"))]
 
-JUMPING = [pygame.image.load(os.path.join("fiary", "be2c321caf6b181f7326926dad281efc.png")),
-           pygame.image.load(os.path.join("fiary", "2c087835dcfd7dfbee68d0506287cec1.png")),
-           pygame.image.load(os.path.join("fiary", "bloom_sirenix_by_miaenchantedfairy_d9cpkkd-pre.png"))]
+JUMPING = [pygame.image.load(os.path.join(
+                "fiary",
+                "be2c321caf6b181f7326926dad281efc.png")),
+           pygame.image.load(os.path.join(
+                "fiary",
+                "2c087835dcfd7dfbee68d0506287cec1.png")),
+           pygame.image.load(os.path.join(
+                "fiary",
+                "bloom_sirenix_by_miaenchantedfairy_d9cpkkd-pre.png"))]
 
 DUCKING = [pygame.image.load(os.path.join("fiary", "musa.png")),
-           pygame.image.load(os.path.join("fiary", "stella_sirenix_render_by_bloomsama_d8rrdoq-pre.png")),
+           pygame.image.load(os.path.join(
+                "fiary",
+                "stella_sirenix_render_by_bloomsama_d8rrdoq-pre.png")),
            pygame.image.load(os.path.join("fiary", "bloom.png"))]
+
 
 class Fairy:
     X_POS = 30
@@ -22,7 +37,7 @@ class Fairy:
 
     def __init__(self, z):
         self.z = z
-        
+
         self.duck_img = DUCKING[z]
         self.run_img = RUNNING[z]
         self.jump_img = JUMPING[z]
@@ -68,15 +83,19 @@ class Fairy:
             self.f_run = False
             self.f_jump = False
             self.fly = True
-        if (userInput[pygame.K_UP] or userInput[pygame.K_w]) and not self.f_jump and q == 0:
+        if (userInput[pygame.K_UP] or userInput[pygame.K_w]) \
+           and not self.f_jump and q == 0:
             self.f_duck = False
             self.f_run = False
             self.f_jump = True
-        elif (userInput[pygame.K_DOWN] or userInput[pygame.K_s]) and not self.f_jump and q == 0:
+        elif (userInput[pygame.K_DOWN] or userInput[pygame.K_s]) \
+                and not self.f_jump and q == 0:
             self.f_duck = True
             self.f_run = False
             self.f_jump = False
-        elif not (self.f_jump or userInput[pygame.K_DOWN] or userInput[pygame.K_w]) and q == 0:
+        elif not (self.f_jump or
+                  userInput[pygame.K_DOWN] or
+                  userInput[pygame.K_w]) and q == 0:
             self.f_duck = False
             self.f_run = True
             self.f_jump = False

@@ -4,7 +4,8 @@ import random
 from globals import *
 
 
-DECOR = [pygame.image.load(os.path.join("ot", "1614551742_53-p-kartinka-noti-na-belom-fone-64.png")),
+DECOR = [pygame.image.load(os.path.join(
+            "ot", "1614551742_53-p-kartinka-noti-na-belom-fone-64.png")),
          pygame.image.load(os.path.join("ot", "maxresdefault.png")),
          pygame.image.load(os.path.join("ot", "ueh.png"))]
 

@@ -4,6 +4,7 @@ from globals import *
 
 BOOM = pygame.image.load(os.path.join("ot", "boom-t-170x148.png"))
 
+
 class Boom:
     def __init__(self, x, y):
         self.image = BOOM

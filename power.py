@@ -6,6 +6,7 @@ POWER = [pygame.image.load(os.path.join("Powerballs", "musaball.png")),
          pygame.image.load(os.path.join("Powerballs", "stellaball.png")),
          pygame.image.load(os.path.join("Powerballs", "bloonball.png"))]
 
+
 class Power:
     def __init__(self, y, z):
         self.image = POWER[z]
@@ -15,6 +16,8 @@ class Power:
 
     def update(self):
         self.rect.x += game_speed * 3
+        if self.rect.x > SCREEN_WIDTH:
+            powers.remove(self)
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image, (self.rect.x, self.rect.y))
