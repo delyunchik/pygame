@@ -1,6 +1,6 @@
 # pygame
-PyGame Yandex.School Project
+<B><I>PyGame Yandex.School Project</B></I>
 
-Authors:
+<B>Authors:</B><BR>
 Anastasiya Barabanova @amorelka<BR>
 Adelina Gorodetskaya @delyunchik
