@@ -55,7 +55,7 @@ def main():
         spRect.center = (1100, 60)
         SCREEN.blit(sp, spRect)
 
-        j = fo.render("Прыжок: " + str(jump_vel), True, (0, 0, 0))
+        j = fo.render("Прыжок: " + str(round(jump_vel, 2)), True, (0, 0, 0))
         jRect = j.get_rect()
         jRect.center = (1100, 80)
         SCREEN.blit(j, jRect)
